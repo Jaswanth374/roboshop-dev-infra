@@ -1,0 +1,47 @@
+bastion:
+- name: bastion_internet #Allow port 22 connections from internet to bastion
+  src: internet
+  dest: bastion
+  port: 22
+
+- name: mongodb_bastion
+  src: bastion
+  dest: mongodb
+  port: 22
+
+- name: redis_bastion
+  src: bastion
+  dest: mongodb
+  port: 22
+
+- name: mysql_bastion
+  src: bastion
+  dest: mongodb
+  port: 22
+
+- name: rabbitmq_bastion
+  src: bastion
+  dest: mongodb
+  port: 22
+
+mongodb:
+- name: mongodb_catalogue #Allow port 27017 connections from catalogue to mongodb
+  src: catalogue
+  dest: mongodb
+  port: 27017
+
+- name : mongodb_user
+  src: user
+  dest: mongodb
+  port: 27017
+
+redis:
+- name: redis_user #Allow port 6379 connections from user to redis
+  src: user
+  dest: redis
+  port: 6379
+
+- name: redis_cart
+  src: cart
+  dest: redis
+  port: 6379
