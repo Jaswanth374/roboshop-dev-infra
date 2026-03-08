@@ -28,8 +28,8 @@ connection {
   } 
 provisioner "remote-exec" {
     inline = [
-    "sudo chmod +x bootstrap.sh",
-    "sudo sh bootstrap.sh mongodb"
+    "sudo chmod +x /tmp/bootstrap.sh",
+    "sudo sh /tmp/bootstrap.sh mongodb"
     ]
   }
 }
@@ -65,8 +65,8 @@ connection {
   } 
 provisioner "remote-exec" {
     inline = [
-    "sudo chmod +x bootstrap.sh",
-    "sudo sh bootstrap.sh redis"
+    "sudo chmod +x /tmp/bootstrap.sh",
+    "sudo sh /tmp/bootstrap.sh redis"
     ]
   }
 }
