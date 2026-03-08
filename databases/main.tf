@@ -26,10 +26,10 @@ connection {
     source      = "bootstrap.sh"
     destination = "/tmp/bpptstrap.sh"
   } 
-provisioner "remote -exec" {
+provisioner "remote-exec" {
     inline = [
-    "cd /tmp/bootstrap.sh",
-    "sudo chmod +x bootstrap.sh"
+    "sudo chmod +x bootstrap.sh",
+    "sudo sh bootstrap.sh mongodb"
     ]
   }
 }
