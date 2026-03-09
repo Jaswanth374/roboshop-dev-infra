@@ -10,9 +10,11 @@ variable "environment" {
 
 
 variable "zone_id" {
+    type=string
     default = "Z07306682ZX5MBM0WBCUJ"
 }
 
 variable "domain_name" {
+    type=string
     default = "jaswanthdevops.online"
 }
