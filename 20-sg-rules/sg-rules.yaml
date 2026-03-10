@@ -24,6 +24,11 @@ bastion:
   dest: mongodb
   port: 22
 
+- name: backend_alb_bastion
+  src: bastion
+  dest: backend_alb
+  port: 80
+
 mongodb:
 - name: mongodb_catalogue #Allow port 27017 connections from catalogue to mongodb
   src: catalogue
