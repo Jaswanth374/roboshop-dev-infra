@@ -15,21 +15,39 @@ resource "terraform_data" "bootstrap_catalogue" {
     triggers_replace = [
     aws_instance.catalogue.id
   ]
-connection {
+  connection {
     type        = "ssh"
     host        = aws_instance.catalogue.private_ip
     user        = "ec2-user"
     password = "DevOps321"
     timeout     = "5m"
     }
- provisioner "file" {
+  provisioner "file" {
     source      = "bootstrap.sh"
     destination = "/tmp/bootstrap.sh"
   } 
-provisioner "remote-exec" {
+  provisioner "remote-exec" {
     inline = [
     "sudo chmod +x /tmp/bootstrap.sh",
     "sudo sh /tmp/bootstrap.sh catalogue"
     ]
   }
+}
+
+resource "aws_ec2_instance_state" "catalogue" {
+  instance_id = aws_instance.catalogue.id
+  state       = "stopped"
+  depends_on = [ terraform_data.bootstrap_catalogue ]
+}
+
+resource "aws_ami_from_instance" "catalogue" {
+  name               = "${var.project}-${var.environment}-catalogue"
+  source_instance_id = aws_instance.catalogue.id
+  depends_on = [ aws_ec2_instance_state.catalogue ]
+  tags = merge(
+    {
+        Name = "${var.project}-${var.environment}-catalogue"
+    },
+    local.common_tags
+  )
 }
